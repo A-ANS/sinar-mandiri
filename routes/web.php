@@ -2,13 +2,12 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Front\HomeController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Front\HomeController;
 use App\Http\Controllers\Front\CatalogController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CarController;
 use App\Http\Controllers\Admin\MessageController;
+use Illuminate\Support\Facades\Route;
 
 // Frontend
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -17,42 +16,9 @@ Route::get('/catalog/{car}', [CatalogController::class, 'show'])->name('catalog.
 Route::get('/contact', [CatalogController::class, 'contact'])->name('contact');
 Route::post('/contact', [CatalogController::class, 'sendMessage'])->name('contact.send');
 
-<<<<<<< HEAD
-// Home / Landing Page
-Route::get('/', [HomeController::class, 'index'])->name('home');
-
-// Placeholder routes for catalog and contact
-Route::get('/catalog', function () {
-    return view('front.catalog.index');
-})->name('catalog.index');
-
-Route::get('/catalog/{car}', function () {
-    return view('front.catalog.show');
-})->name('catalog.show');
-
-Route::get('/contact', function () {
-    return view('front.contact');
-})->name('contact');
-
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
-
-// Admin Dashboard (placeholder)
-Route::get('/admin/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('admin.dashboard');
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
-
-require __DIR__.'/auth.php';
-=======
-// Auth
-Auth::routes();
 
 // Admin
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
@@ -64,7 +30,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::delete('messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
 });
 
-Auth::routes();
+// Profile
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
->>>>>>> d0cbcdfe2183facd8477fe0d0c77c93a43f940b9
+require __DIR__.'/auth.php';

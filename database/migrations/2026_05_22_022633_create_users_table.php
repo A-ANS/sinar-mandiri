@@ -5,28 +5,22 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-<<<<<<< HEAD
     public function up(): void
     {
-=======
-    public function up(): void {
->>>>>>> d0cbcdfe2183facd8477fe0d0c77c93a43f940b9
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-<<<<<<< HEAD
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('role')->default('pembeli'); // Kolom role
-=======
-            $table->string('password');
->>>>>>> d0cbcdfe2183facd8477fe0d0c77c93a43f940b9
+            $table->string('role')->default('pembeli');
             $table->rememberToken();
             $table->timestamps();
         });
     }
-    public function down(): void {
+
+    public function down(): void
+    {
         Schema::dropIfExists('users');
     }
 };
