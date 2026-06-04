@@ -43,6 +43,7 @@
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('catalog.*') ? 'active' : '' }}" href="{{ route('catalog.index') }}">Katalog</a></li>
                 <li class="nav-item"><a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}" href="{{ route('contact') }}">Kontak</a></li>
                 @auth
+<<<<<<< HEAD
                     @if(Auth::user()->role === 'admin')
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="bi bi-shield-lock"></i> Admin</a></li>
                     @endif
@@ -65,6 +66,9 @@
                             <i class="bi bi-person-plus"></i> Daftar
                         </a>
                     </li>
+=======
+                    <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="bi bi-shield-lock"></i> Admin</a></li>
+>>>>>>> d0cbcdfe2183facd8477fe0d0c77c93a43f940b9
                 @endauth
             </ul>
         </div>
