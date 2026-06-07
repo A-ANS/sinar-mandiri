@@ -11,15 +11,36 @@ class CarSeeder extends Seeder
     public function run(): void
     {
         // Create brands first
-        $brands = [
-            'Toyota',
-            'Honda',
-            'Mitsubishi',
-            'Daihatsu',
+        $brandsData = [
+            ['name' => 'Toyota', 'classification' => 'Jepang'],
+            ['name' => 'Honda', 'classification' => 'Jepang'],
+            ['name' => 'Mitsubishi', 'classification' => 'Jepang'],
+            ['name' => 'Daihatsu', 'classification' => 'Jepang'],
+            ['name' => 'Suzuki', 'classification' => 'Jepang'],
+            ['name' => 'Nissan', 'classification' => 'Jepang'],
+            ['name' => 'Mazda', 'classification' => 'Jepang'],
+            ['name' => 'Wuling', 'classification' => 'Tiongkok'],
+            ['name' => 'Hyundai', 'classification' => 'Korea Selatan'],
+            ['name' => 'Kia', 'classification' => 'Korea Selatan'],
+            ['name' => 'BMW', 'classification' => 'Eropa'],
+            ['name' => 'Mercedes-Benz', 'classification' => 'Eropa'],
+            ['name' => 'Ford', 'classification' => 'Amerika'],
+            ['name' => 'Chevrolet', 'classification' => 'Amerika'],
+            ['name' => 'Datsun', 'classification' => 'Jepang'],
+            ['name' => 'Isuzu', 'classification' => 'Jepang'],
+            ['name' => 'Lexus', 'classification' => 'Jepang'],
+            ['name' => 'Peugeot', 'classification' => 'Eropa'],
+            ['name' => 'Renault', 'classification' => 'Eropa'],
+            ['name' => 'Volkswagen', 'classification' => 'Eropa'],
+            ['name' => 'Volvo', 'classification' => 'Eropa'],
         ];
 
-        foreach ($brands as $brand) {
-            Brand::firstOrCreate(['name' => $brand]);
+        foreach ($brandsData as $data) {
+            $logo = 'https://ui-avatars.com/api/?name=' . urlencode($data['name']) . '&background=random&color=fff&size=128&bold=true';
+            Brand::updateOrCreate(
+                ['name' => $data['name']],
+                ['classification' => $data['classification'], 'logo' => $logo]
+            );
         }
 
         // Get brands

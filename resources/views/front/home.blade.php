@@ -3,12 +3,13 @@
 
 @section('content')
 {{-- Hero --}}
-<section style="background: linear-gradient(135deg, #1a3c6e 0%, #0f2a52 60%, #1a3c6e 100%); min-height: 85vh; display:flex; align-items:center;">
+<section style="background: var(--bg-dark); min-height: 85vh; display:flex; align-items:center; position: relative; overflow: hidden;">
+    <img src="{{ asset('images/logo.png') }}" alt="Watermark" style="position: absolute; right: -5%; top: 50%; transform: translateY(-50%); height: 120%; opacity: 0.05; pointer-events: none;">
     <div class="container py-5">
         <div class="row align-items-center">
             <div class="col-lg-6 text-white">
-                <span class="badge mb-3 px-3 py-2" style="background:rgba(232,160,32,0.2); color:#e8a020; font-size:.9rem;">🚗 Showroom Terpercaya</span>
-                <h1 class="display-4 fw-bold mb-3">Temukan Mobil <br><span style="color:#e8a020">Impian Anda</span></h1>
+                <span class="badge mb-3 px-3 py-2" style="background:rgba(212, 175, 55, 0.2); color:var(--accent); font-size:.9rem;">🚗 Showroom Terpercaya</span>
+                <h1 class="display-4 fw-bold mb-3">Temukan Mobil <br><span style="color:var(--accent)">Impian Anda</span></h1>
                 <p class="lead text-white-50 mb-4">Koleksi mobil baru & bekas berkualitas dengan harga terbaik. Garansi resmi, proses mudah, dan pelayanan profesional.</p>
                 <div class="d-flex gap-3 flex-wrap">
                     <a href="{{ route('catalog.index') }}" class="btn btn-accent btn-lg px-4 rounded-pill">
@@ -20,28 +21,28 @@
                 </div>
                 <div class="row mt-5 g-3">
                     <div class="col-4 text-center">
-                        <h3 class="fw-bold mb-0" style="color:#e8a020">{{ $totalCars }}+</h3>
+                        <h3 class="fw-bold mb-0" style="color:var(--accent)">{{ $totalCars }}+</h3>
                         <small class="text-white-50">Unit Tersedia</small>
                     </div>
                     <div class="col-4 text-center">
-                        <h3 class="fw-bold mb-0" style="color:#e8a020">{{ $brands->count() }}+</h3>
+                        <h3 class="fw-bold mb-0" style="color:var(--accent)">{{ $brands->count() }}+</h3>
                         <small class="text-white-50">Merek Mobil</small>
                     </div>
                     <div class="col-4 text-center">
-                        <h3 class="fw-bold mb-0" style="color:#e8a020">10+</h3>
+                        <h3 class="fw-bold mb-0" style="color:var(--accent)">10+</h3>
                         <small class="text-white-50">Tahun Pengalaman</small>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6 text-center mt-5 mt-lg-0">
-                <i class="bi bi-car-front" style="font-size: 18rem; color: rgba(232,160,32,0.15);"></i>
+            <div class="col-lg-6 text-center mt-5 mt-lg-0" style="position: relative; z-index: 1;">
+                <img src="{{ asset('images/logo.png') }}" alt="Sinar Mandiri" style="max-width: 100%; height: auto; filter: drop-shadow(0 0 20px rgba(212,175,55,0.3));">
             </div>
         </div>
     </div>
 </section>
 
 {{-- Brands --}}
-<section class="py-5 bg-light">
+<section class="py-5" style="background: #111;">
     <div class="container">
         <div class="text-center mb-5">
             <h2 class="fw-bold section-title">Merek Pilihan</h2>
@@ -57,7 +58,7 @@
                         @else
                             <i class="bi bi-car-front-fill fs-1 mb-2" style="color:var(--primary)"></i>
                         @endif
-                        <p class="mb-0 fw-semibold small text-dark">{{ $brand->name }}</p>
+                        <p class="mb-0 fw-semibold small text-light">{{ $brand->name }}</p>
                         <small class="text-muted">{{ $brand->cars_count }} unit</small>
                     </div>
                 </a>

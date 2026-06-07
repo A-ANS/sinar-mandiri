@@ -9,12 +9,23 @@
 <div class="card">
     <div class="table-responsive">
         <table class="table table-hover align-middle mb-0">
-            <thead class="table-light"><tr><th>Logo</th><th>Nama</th><th>Jumlah Mobil</th><th>Aksi</th></tr></thead>
+            <thead class="table-light"><tr><th>Logo</th><th>Nama</th><th>Klasifikasi</th><th>Jumlah Mobil</th><th>Aksi</th></tr></thead>
             <tbody>
                 @forelse($brands as $brand)
                 <tr>
-                    <td>@if($brand->logo)<img src="{{ Storage::url($brand->logo) }}" height="40" class="object-fit-contain">@else<i class="bi bi-car-front fs-4 text-muted"></i>@endif</td>
+                    <td>
+                        @if($brand->logo)
+                            @if(Str::startsWith($brand->logo, 'http'))
+                                <img src="{{ $brand->logo }}" height="40" class="object-fit-contain rounded">
+                            @else
+                                <img src="{{ Storage::url($brand->logo) }}" height="40" class="object-fit-contain rounded">
+                            @endif
+                        @else
+                            <i class="bi bi-car-front fs-4 text-muted"></i>
+                        @endif
+                    </td>
                     <td><strong>{{ $brand->name }}</strong></td>
+                    <td><span class="badge bg-secondary">{{ $brand->classification ?? '-' }}</span></td>
                     <td>{{ $brand->cars_count }} unit</td>
                     <td>
                         <div class="d-flex gap-1">

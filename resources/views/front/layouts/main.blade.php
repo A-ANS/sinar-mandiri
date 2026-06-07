@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,9 +7,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
     <style>
-        :root { --primary: #1a3c6e; --accent: #e8a020; }
-        body { font-family: 'Segoe UI', sans-serif; }
-        .navbar { background: var(--primary) !important; }
+        :root { --primary: #121212; --accent: #D4AF37; --bg-dark: #1a1a1a; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg-dark); color: #f8f9fa; }
+        .navbar { background: var(--primary) !important; border-bottom: 1px solid #333; }
         .navbar-brand { font-weight: 800; font-size: 1.4rem; color: #fff !important; }
         .navbar-brand span { color: var(--accent); }
         .nav-link { color: rgba(255,255,255,0.85) !important; font-weight: 500; }
@@ -18,10 +18,10 @@
         .btn-primary:hover { background: #0f2a52; border-color: #0f2a52; }
         .btn-accent { background: var(--accent); border-color: var(--accent); color: #fff; }
         .btn-accent:hover { background: #c98a10; border-color: #c98a10; color: #fff; }
-        .card { border: none; box-shadow: 0 2px 15px rgba(0,0,0,0.08); border-radius: 12px; transition: transform .2s, box-shadow .2s; }
-        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.15); }
+        .card { border: none; box-shadow: 0 2px 15px rgba(0,0,0,0.5); border-radius: 12px; transition: transform .2s, box-shadow .2s; background-color: #222; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.8); }
         .badge-condition { font-size: .75rem; padding: .35em .7em; border-radius: 20px; }
-        footer { background: var(--primary); color: #fff; }
+        footer { background: var(--primary); color: #fff; border-top: 1px solid #333; }
         footer a { color: rgba(255,255,255,0.7); text-decoration: none; }
         footer a:hover { color: var(--accent); }
         .car-thumbnail { height: 200px; object-fit: cover; border-radius: 12px 12px 0 0; }
@@ -33,7 +33,10 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark sticky-top shadow">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">Sinar <span>Mandiri</span></a>
+        <a class="navbar-brand d-flex align-items-center gap-2" href="{{ route('home') }}">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo Sinar Mandiri" style="height: 40px; width: auto;" class="object-fit-contain">
+            <span>Sinar <span>Mandiri</span></span>
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
             <span class="navbar-toggler-icon"></span>
         </button>

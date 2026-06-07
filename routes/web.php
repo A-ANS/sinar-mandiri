@@ -25,6 +25,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('brands', BrandController::class);
     Route::resource('cars', CarController::class);
+    Route::resource('products', App\Http\Controllers\Admin\ProductController::class);
     Route::get('messages', [MessageController::class, 'index'])->name('messages.index');
     Route::get('messages/{message}', [MessageController::class, 'show'])->name('messages.show');
     Route::delete('messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
