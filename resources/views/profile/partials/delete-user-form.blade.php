@@ -1,57 +1,59 @@
-<section class="space-y-6">
+<section>
     <header>
-        <h2 class="text-lg font-bold text-red-900">
-            {{ __('Hapus Akun') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-red-700 leading-relaxed">
+        <h5 class="fw-bold text-danger mb-1">{{ __('Hapus Akun') }}</h5>
+        <p class="text-danger small mb-4 opacity-75">
             {{ __('Aksi ini permanen. Semua data akun akan dihapus dan tidak dapat dikembalikan.') }}
         </p>
     </header>
 
-    <button
-        type="button"
-        x-data=""
-        x-on:click.prevent="$dispatch('open-modal', 'confirm-user-deletion')"
-        class="inline-flex items-center rounded-lg bg-red-600 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
-    >{{ __('Hapus Akun') }}</button>
+    <!-- Bootstrap Modal Button -->
+    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmUserDeletionModal">
+        {{ __('Hapus Akun') }}
+    </button>
 
-    <x-modal name="confirm-user-deletion" :show="$errors->userDeletion->isNotEmpty()" focusable>
-        <form method="post" action="{{ route('profile.destroy') }}" class="p-6">
-            @csrf
-            @method('delete')
+    <!-- Modal -->
+    <div class="modal fade" id="confirmUserDeletionModal" tabindex="-1" aria-labelledby="confirmUserDeletionModalLabel" aria-hidden="true" {{ $errors->userDeletion->isNotEmpty() ? 'data-bs-show="true"' : '' }}>
+        <div class="modal-dialog">
+            <div class="modal-content bg-dark border-secondary">
+                <form method="post" action="{{ route('profile.destroy') }}">
+                    @csrf
+                    @method('delete')
+                    
+                    <div class="modal-header border-secondary">
+                        <h5 class="modal-title text-white" id="confirmUserDeletionModalLabel">{{ __('Yakin ingin menghapus akun?') }}</h5>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <p class="text-white-50 small mb-4">
+                            {{ __('Masukkan password Anda untuk mengonfirmasi penghapusan akun secara permanen.') }}
+                        </p>
 
-            <h2 class="text-lg font-bold text-gray-900">
-                {{ __('Yakin ingin menghapus akun?') }}
-            </h2>
-
-            <p class="mt-1 text-sm text-gray-600">
-                {{ __('Masukkan password Anda untuk mengonfirmasi penghapusan akun secara permanen.') }}
-            </p>
-
-            <div class="mt-6">
-                <x-input-label for="password" value="{{ __('Password') }}" class="font-semibold text-gray-700" />
-
-                <x-text-input
-                    id="password"
-                    name="password"
-                    type="password"
-                    class="mt-2 block w-full rounded-lg border-gray-300 px-4 py-2.5 focus:border-red-500 focus:ring-red-500"
-                    placeholder="{{ __('Password') }}"
-                />
-
-                <x-input-error :messages="$errors->userDeletion->get('password')" class="mt-2" />
+                        <div class="mb-3">
+                            <label for="password" class="form-label text-white-50">{{ __('Password') }}</label>
+                            <input id="password" name="password" type="password" class="form-control bg-dark text-white border-secondary" placeholder="{{ __('Password') }}">
+                            @if($errors->userDeletion->get('password'))
+                                <div class="text-danger small mt-1">{{ $errors->userDeletion->first('password') }}</div>
+                            @endif
+                        </div>
+                    </div>
+                    
+                    <div class="modal-footer border-secondary">
+                        <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">{{ __('Batal') }}</button>
+                        <button type="submit" class="btn btn-danger">{{ __('Hapus Akun') }}</button>
+                    </div>
+                </form>
             </div>
-
-            <div class="mt-6 flex justify-end gap-3">
-                <x-secondary-button x-on:click="$dispatch('close')">
-                    {{ __('Batal') }}
-                </x-secondary-button>
-
-                <x-danger-button>
-                    {{ __('Hapus Akun') }}
-                </x-danger-button>
-            </div>
-        </form>
-    </x-modal>
+        </div>
+    </div>
+    
+    @if($errors->userDeletion->isNotEmpty())
+        <!-- If there are errors, ensure the modal opens automatically -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var myModal = new bootstrap.Modal(document.getElementById('confirmUserDeletionModal'));
+                myModal.show();
+            });
+        </script>
+    @endif
 </section>

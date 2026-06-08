@@ -15,11 +15,16 @@
         .sidebar .nav-link { color: rgba(255,255,255,0.7); padding: .75rem 1.5rem; border-radius: 8px; margin: 2px 10px; font-weight: 500; }
         .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(255,255,255,0.1); color: #fff; }
         .sidebar .nav-link i { width: 20px; }
-        .admin-profile { margin: 1rem; padding: 1rem; background: rgba(255,255,255,.06); border: 1px solid var(--border-color); border-radius: 8px; }
+        .admin-profile { margin: 1rem; padding: 1rem; background: rgba(212,175,55,.08); border: 1px solid rgba(212,175,55,.25); border-radius: 8px; }
         .admin-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: #121212; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; }
         .admin-avatar-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #121212; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; }
         .main-content { margin-left: 260px; min-height: 100vh; position: relative; }
         .topbar { background: var(--primary); padding: .75rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
+        .topbar-actions { display: flex; align-items: center; gap: .5rem; }
+        .topbar .btn-admin-link { border-color: rgba(255,255,255,.18); color: rgba(255,255,255,.82); }
+        .topbar .btn-admin-link:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.32); color: #fff; }
+        .topbar .btn-logout { border-color: rgba(220,53,69,.55); color: #ff7b87; }
+        .topbar .btn-logout:hover { background: rgba(220,53,69,.15); color: #fff; }
         .content-area { padding: 1.5rem; position: relative; z-index: 1; }
         .stat-card { border-radius: 12px; border: none; padding: 1.5rem; color: #fff; }
         .badge-unread { background: #dc3545; color: #fff; font-size: .65rem; border-radius: 10px; padding: 2px 6px; }
@@ -65,9 +70,6 @@
             <i class="bi bi-receipt me-2"></i>Transaksi
         </a>
         <hr class="border-secondary mx-3">
-        <a class="nav-link" href="{{ route('home') }}" target="_blank">
-            <i class="bi bi-box-arrow-up-right me-2"></i>Lihat Website
-        </a>
         <a class="nav-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}" href="{{ route('profile.edit') }}">
             <i class="bi bi-person-lines-fill me-2"></i>Profil Saya
         </a>
@@ -81,7 +83,10 @@
 <div class="main-content">
     <div class="topbar">
         <h6 class="mb-0 fw-bold">@yield('title', 'Dashboard')</h6>
-        <div class="d-flex align-items-center gap-2">
+        <div class="topbar-actions">
+            <a href="{{ route('home') }}" class="btn btn-sm btn-admin-link">
+                <i class="bi bi-house-door me-1"></i>Lihat Website
+            </a>
             <span class="admin-avatar-sm">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
             <div class="lh-sm">
                 <span class="small d-block">{{ auth()->user()->name }}</span>

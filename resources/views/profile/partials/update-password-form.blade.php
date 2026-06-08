@@ -1,49 +1,44 @@
 <section>
     <header>
-        <h2 class="text-lg font-bold text-gray-900">
-            {{ __('Ubah Password') }}
-        </h2>
-
-        <p class="mt-1 text-sm text-gray-600 leading-relaxed">
+        <h5 class="fw-bold text-white mb-1">{{ __('Ubah Password') }}</h5>
+        <p class="text-white-50 small mb-4">
             {{ __('Gunakan password yang kuat dan berbeda dari akun lain.') }}
         </p>
     </header>
 
-    <form method="post" action="{{ route('password.update') }}" class="mt-6 space-y-5">
+    <form method="post" action="{{ route('password.update') }}">
         @csrf
         @method('put')
 
-        <div>
-            <x-input-label for="update_password_current_password" :value="__('Password Saat Ini')" class="font-semibold text-gray-700" />
-            <x-text-input id="update_password_current_password" name="current_password" type="password" class="mt-2 block w-full rounded-lg border-gray-300 px-4 py-2.5 focus:border-[#D4AF37] focus:ring-[#D4AF37]" autocomplete="current-password" />
-            <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
+        <div class="mb-3">
+            <label for="update_password_current_password" class="form-label text-white-50">{{ __('Password Saat Ini') }}</label>
+            <input id="update_password_current_password" name="current_password" type="password" class="form-control bg-dark text-white border-secondary" autocomplete="current-password">
+            @if($errors->updatePassword->get('current_password'))
+                <div class="text-danger small mt-1">{{ $errors->updatePassword->first('current_password') }}</div>
+            @endif
         </div>
 
-        <div>
-            <x-input-label for="update_password_password" :value="__('Password Baru')" class="font-semibold text-gray-700" />
-            <x-text-input id="update_password_password" name="password" type="password" class="mt-2 block w-full rounded-lg border-gray-300 px-4 py-2.5 focus:border-[#D4AF37] focus:ring-[#D4AF37]" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password')" class="mt-2" />
+        <div class="mb-3">
+            <label for="update_password_password" class="form-label text-white-50">{{ __('Password Baru') }}</label>
+            <input id="update_password_password" name="password" type="password" class="form-control bg-dark text-white border-secondary" autocomplete="new-password">
+            @if($errors->updatePassword->get('password'))
+                <div class="text-danger small mt-1">{{ $errors->updatePassword->first('password') }}</div>
+            @endif
         </div>
 
-        <div>
-            <x-input-label for="update_password_password_confirmation" :value="__('Konfirmasi Password Baru')" class="font-semibold text-gray-700" />
-            <x-text-input id="update_password_password_confirmation" name="password_confirmation" type="password" class="mt-2 block w-full rounded-lg border-gray-300 px-4 py-2.5 focus:border-[#D4AF37] focus:ring-[#D4AF37]" autocomplete="new-password" />
-            <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" class="mt-2" />
+        <div class="mb-3">
+            <label for="update_password_password_confirmation" class="form-label text-white-50">{{ __('Konfirmasi Password Baru') }}</label>
+            <input id="update_password_password_confirmation" name="password_confirmation" type="password" class="form-control bg-dark text-white border-secondary" autocomplete="new-password">
+            @if($errors->updatePassword->get('password_confirmation'))
+                <div class="text-danger small mt-1">{{ $errors->updatePassword->first('password_confirmation') }}</div>
+            @endif
         </div>
 
-        <div class="flex flex-wrap items-center gap-4 pt-1">
-            <button type="submit" class="inline-flex items-center rounded-lg bg-gray-900 px-5 py-2.5 text-sm font-bold text-white transition hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2">
-                {{ __('Simpan Password') }}
-            </button>
+        <div class="d-flex align-items-center gap-3 mt-4">
+            <button type="submit" class="btn btn-outline-light">{{ __('Simpan Password') }}</button>
 
             @if (session('status') === 'password-updated')
-                <p
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="text-sm font-medium text-green-700"
-                >{{ __('Password berhasil diperbarui.') }}</p>
+                <p class="text-success small mb-0">{{ __('Password berhasil diperbarui.') }}</p>
             @endif
         </div>
     </form>

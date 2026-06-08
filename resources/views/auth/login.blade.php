@@ -7,6 +7,11 @@
             </div>
             <h1 class="mt-4 text-2xl font-bold text-center text-white">Sinar <span style="color:#D4AF37">Mandiri</span></h1>
             <p class="text-center text-sm text-gray-400 mt-1">Platform Penjualan Kendaraan</p>
+            <div class="mt-4 text-center">
+                <a href="{{ route('home') }}" class="inline-flex items-center justify-center rounded-lg border border-gray-600 px-4 py-2 text-sm font-semibold text-gray-200 transition hover:border-[#D4AF37] hover:text-[#D4AF37] focus:outline-none focus:ring-2 focus:ring-[#D4AF37] focus:ring-offset-2 focus:ring-offset-gray-800">
+                    Kembali ke Dashboard
+                </a>
+            </div>
         </div>
 
         <!-- Session Status -->
