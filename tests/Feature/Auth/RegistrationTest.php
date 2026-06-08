@@ -26,7 +26,8 @@ class RegistrationTest extends TestCase
             'password_confirmation' => 'password',
         ]);
 
-        $this->assertAuthenticated();
+        $this->assertGuest();
         $response->assertRedirect(RouteServiceProvider::HOME);
+        $response->assertSessionHas('success', 'Pendaftaran berhasil. Silakan login untuk masuk ke akun Anda.');
     }
 }

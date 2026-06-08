@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Presentasi Project - Sinar Mandiri</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0a0a;
+            --bg-card: #141414;
+            --primary: #121212;
+            --accent: #D4AF37;
+            --accent-hover: #bda132;
+            --text-light: #f8f9fa;
+            --text-gray: #a0aec0;
+            --border: #2d3748;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-light);
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Presentation Container */
+        .presentation-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Slide Styles */
+        .slide {
+            position: absolute;
+            width: 90%;
+            max-width: 1100px;
+            height: 80vh;
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 24px;
+            padding: 3.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            opacity: 0;
+            transform: scale(0.95) translateY(20px);
+            pointer-events: none;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+            pointer-events: auto;
+            z-index: 10;
+        }
+
+        /* Slide Content headers */
+        .slide-header {
+            border-bottom: 2px solid rgba(212, 175, 55, 0.2);
+            padding-bottom: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .slide-header h2 span {
+            color: var(--accent);
+        }
+
+        .slide-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide-footer {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1.5rem;
+        }
+
+        /* Slide specific styling */
+        /* Title Slide */
+        .slide-title-bg {
+            background: linear-gradient(135deg, #121212 0%, #050505 100%);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-color: var(--accent);
+        }
+
+        .slide-title-bg .title-logo {
+            width: 140px;
+            height: 140px;
+            background: var(--bg-dark);
+            border: 3px solid var(--accent);
+            border-radius: 50%;
+            margin-bottom: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        .slide-title-bg .title-logo img {
+            max-width: 90px;
+            height: auto;
+        }
+
+        .slide-title-bg h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .slide-title-bg h1 span {
+            color: var(--accent);
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .slide-title-bg p {
+            color: var(--text-gray);
+            font-size: 1.3rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+            max-width: 600px;
+        }
+
+        /* Grid Layouts */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        /* Cards */
+        .content-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .content-card:hover {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.03);
+            transform: translateY(-5px);
+        }
+
+        .content-card h3 {
+            color: var(--accent);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .content-card p {
+            color: var(--text-gray);
+            line-height: 1.6;
+            font-size: 1.05rem;
+        }
+
+        .content-card ul {
+            list-style: none;
+            color: var(--text-gray);
+        }
+
+        .content-card ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 12px;
+            line-height: 1.5;
+            font-size: 1.05rem;
+        }
+
+        .content-card ul li::before {
+            content: "✓";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .text-accent {
+            color: var(--accent);
+        }
+
+        /* Controls styling */
+        .controls {
+            position: fixed;
+            bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            z-index: 100;
+        }
+
+        .control-btn {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-light);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--primary);
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.2);
+        }
+
+        .progress-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--accent);
+            transform: scale(1.3);
+            box-shadow: 0 0 8px var(--accent);
+        }
+
+        /* Tech icons grid */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            border-color: var(--accent);
+            background: rgba(212, 175, 55, 0.05);
+            transform: translateY(-3px);
+        }
+
+        .tech-card h4 {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tech-card p {
+            color: var(--accent);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .tech-card span {
+            color: var(--text-gray);
+            font-size: 0.85rem;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* Keyboard tips */
+        .key-tip {
+            position: fixed;
+            top: 25px;
+            right: 40px;
+            font-size: 0.85rem;
+            color: var(--text-gray);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border);
+            padding: 6px 12px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .key-btn {
+            background: var(--border);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            color: var(--text-light);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="key-tip">
+        <span>Gunakan Tombol</span>
+        <span class="key-btn">←</span>
+        <span class="key-btn">→</span>
+        <span>atau Spasi</span>
+    </div>
+
+    <div class="presentation-container">
+
+        <!-- SLIDE 1: Title -->
+        <div class="slide active slide-title-bg" id="slide-1">
+            <div class="title-logo">
+                <img src="images/logo.png" alt="Sinar Mandiri Logo">
+            </div>
+            <h1>Showroom <span>Sinar Mandiri</span></h1>
+            <p>Digitalisasi Showroom Mobil, Manajemen Produk CRUD & Penyelarasan Merek</p>
+            <div class="slide-footer" style="border:none; margin-top: 2rem;">
+                <span>Oleh: AI Coding Assistant</span>
+                <span>Juni 2026</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Project Client -->
+        <div class="slide" id="slide-2">
+            <div class="slide-header">
+                <h2><span>01.</span> Profil & Latar Belakang Client</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div class="content-card" style="height: 100%; display: flex; flex-direction: column; justify-content: center;">
+                        <h3 style="font-size: 1.8rem; margin-bottom: 1.5rem;">Showroom Sinar Mandiri</h3>
+                        <p style="font-size: 1.15rem; line-height: 1.7;">
+                            Sinar Mandiri Mobilindo merupakan showroom mobil tepercaya yang menyediakan koleksi mobil baru maupun bekas berkualitas. 
+                            Untuk meningkatkan daya saing di era digital, showroom ini bertransformasi dari penjualan konvensional menjadi showroom berbasis platform online interaktif.
+                        </p>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div class="content-card">
+                            <h3>Visi Platform</h3>
+                            <p>Menciptakan katalog mobil yang memukau secara visual, mudah diakses pelanggan, serta memiliki pengelolaan internal yang rapi dan terkompilasi dalam satu platform.</p>
+                        </div>
+                        <div class="content-card">
+                            <h3>Target Pengguna</h3>
+                            <p>Admin showroom (pengelola data) dan calon pembeli kendaraan yang mencari mobil berkualitas tinggi.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Showroom Sinar Mandiri</span>
+                <span>Slide 2 dari 5</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Permasalahan -->
+        <div class="slide" id="slide-3">
+            <div class="slide-header">
+                <h2><span>02.</span> Permasalahan Utama Client</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-3">
+                    <div class="content-card">
+                        <h3>1. Manajemen Manual</h3>
+                        <p>Pendataan inventaris mobil, stok aksesoris, dan sparepart sebelumnya dilakukan manual atau tidak terpusat, berisiko menyebabkan selisih data stok.</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>2. Batasan Jangkauan</h3>
+                        <p>Pemasaran mobil hanya mengandalkan kunjungan fisik ke showroom, sehingga kehilangan potensi besar dari pembeli daring.</p>
+                    </div>
+                    <div class="content-card">
+                        <h3>3. User Experience (UX)</h3>
+                        <p>Sistem pendaftaran awal kurang fleksibel (misal: validasi email yang wajib huruf kecil), menurunkan konversi minat pembeli baru untuk mendaftar.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Permasalahan Proyek</span>
+                <span>Slide 3 dari 5</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Kebutuhan Platform -->
+        <div class="slide" id="slide-4">
+            <div class="slide-header">
+                <h2><span>03.</span> Kebutuhan Sistem & Solusi</h2>
+            </div>
+            <div class="slide-body">
+                <div class="grid-2">
+                    <div class="content-card">
+                        <h3>Fitur Utama Administrasi (Admin)</h3>
+                        <ul>
+                            <li><strong>CRUD Produk Lengkap</strong>: Admin dapat menambah, mengubah, melihat, dan menghapus produk (aksesoris/sparepart) terpisah dari data mobil.</li>
+                            <li><strong>Unggah Gambar Pintar</strong>: Gambar produk terhapus otomatis di server saat produk dihapus atau fotonya diganti.</li>
+                            <li><strong>Identitas Brand Keemasan</strong>: Sidebar dan halaman dashboard admin menggunakan logo dan warna hitam-emas premium.</li>
+                        </ul>
+                    </div>
+                    <div class="content-card">
+                        <h3>Kenyamanan Pengguna (Pembeli)</h3>
+                        <ul>
+                            <li><strong>Katalog Mobil & Brand</strong>: Halaman pencarian mobil yang interaktif dilengkapi filter klasifikasi merek (Jepang, Eropa, dll.).</li>
+                            <li><strong>Normalisasi Email</strong>: Input email saat daftar otomatis dikecilkan di backend, mencegah kegagalan pendaftaran akibat huruf besar.</li>
+                            <li><strong>Show / Hide Password</strong>: Ikon mata interaktif untuk menampilkan/menyembunyikan password demi akurasi penulisan sandi.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Kebutuhan Solusi</span>
+                <span>Slide 4 dari 5</span>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Teknologi Yang Digunakan -->
+        <div class="slide" id="slide-5">
+            <div class="slide-header">
+                <h2><span>04.</span> Arsitektur & Teknologi</h2>
+            </div>
+            <div class="slide-body">
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h4>Laravel 10/11</h4>
+                        <p>Back-End Core</p>
+                        <span>MVC, Routing, Eloquent ORM, Storage API, & Security</span>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Tailwind CSS</h4>
+                        <p>Auth & Profile UI</p>
+                        <span>Desain modern, responsif, dan fleksibel dengan gradasi gelap</span>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Bootstrap 5</h4>
+                        <p>Admin & Landing UI</p>
+                        <span>Framework CSS untuk dashboard admin tabular dan katalog mobil</span>
+                    </div>
+                    <div class="tech-card">
+                        <h4>MySQL</h4>
+                        <p>Database</p>
+                        <span>Penyimpanan data relasional mobil, produk, pesan, & user</span>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Alpine.js</h4>
+                        <p>Front-End Reactive</p>
+                        <span>Interaksi dropdown navigasi responsif pada template Breeze</span>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Vite</h4>
+                        <p>Asset Bundler</p>
+                        <span>Kompilasi super cepat untuk file SCSS, CSS, dan JS produksi</span>
+                    </div>
+                    <div class="tech-card">
+                        <h4>Laravel Breeze</h4>
+                        <p>Auth Scaffolding</p>
+                        <span>Sistem autentikasi dasar yang dimodifikasi ke tema Hitam-Emas</span>
+                    </div>
+                    <div class="tech-card">
+                        <h4>JavaScript (ES6)</h4>
+                        <p>UI Interactions</p>
+                        <span>Fungsi custom penampil kata sandi dan animasi transisi halaman</span>
+                    </div>
+                </div>
+            </div>
+            <div class="slide-footer">
+                <span>Teknologi Sistem</span>
+                <span>Slide 5 dari 5</span>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Slide controls -->
+    <div class="controls">
+        <button class="control-btn" id="prev-btn">←</button>
+        <div class="progress-dots" id="dots-container"></div>
+        <button class="control-btn" id="next-btn">→</button>
+    </div>
+
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const dotsContainer = document.getElementById('dots-container');
+        let currentSlide = 0;
+
+        // Create dots dynamically
+        slides.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (idx === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => gotoSlide(idx));
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = document.querySelectorAll('.dot');
+
+        function updateSlides() {
+            slides.forEach((slide, idx) => {
+                slide.classList.remove('active');
+                dots[idx].classList.remove('active');
+            });
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                currentSlide++;
+                updateSlides();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlides();
+            }
+        }
+
+        function gotoSlide(idx) {
+            currentSlide = idx;
+            updateSlides();
+        }
+
+        // Navigation listeners
+        nextBtn.addEventListener('click', nextSlide);
+        prevBtn.addEventListener('click', prevSlide);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                prevSlide();
+            }
+        });
+    </script>
+</body>
+</html>

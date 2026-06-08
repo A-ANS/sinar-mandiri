@@ -27,6 +27,11 @@
         .car-thumbnail { height: 200px; object-fit: cover; border-radius: 12px 12px 0 0; }
         .section-title { position: relative; display: inline-block; }
         .section-title::after { content: ''; position: absolute; bottom: -8px; left: 0; width: 50px; height: 3px; background: var(--accent); border-radius: 2px; }
+        .profile-menu { min-width: 260px; background: #1f1f1f; border: 1px solid #333; box-shadow: 0 12px 28px rgba(0,0,0,.35); }
+        .profile-avatar { width: 34px; height: 34px; border-radius: 50%; background: var(--accent); color: #121212; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; }
+        .profile-avatar-lg { width: 46px; height: 46px; border-radius: 50%; background: var(--accent); color: #121212; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; }
+        .dropdown-item { color: rgba(255,255,255,.85); }
+        .dropdown-item:hover, .dropdown-item:focus { background: rgba(212,175,55,.12); color: var(--accent); }
     </style>
     @stack('styles')
 </head>
@@ -52,13 +57,32 @@
                     @if(Auth::user()->role === 'admin')
                         <li class="nav-item"><a class="nav-link" href="{{ route('admin.dashboard') }}"><i class="bi bi-shield-lock"></i> Admin</a></li>
                     @endif
-                    <li class="nav-item">
-                        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-light btn-sm ms-2">
-                                <i class="bi bi-box-arrow-right"></i> Keluar
-                            </button>
-                        </form>
+                    <li class="nav-item dropdown ms-lg-2">
+                        <button class="btn btn-outline-light btn-sm dropdown-toggle d-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span class="profile-avatar">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                            <span>{{ Auth::user()->name }}</span>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-end profile-menu p-0">
+                            <div class="p-3 border-bottom border-secondary">
+                                <div class="d-flex align-items-center gap-3">
+                                    <span class="profile-avatar-lg">{{ strtoupper(substr(Auth::user()->name, 0, 1)) }}</span>
+                                    <div class="text-break">
+                                        <strong class="d-block text-white">{{ Auth::user()->name }}</strong>
+                                        <small class="text-white-50">{{ Auth::user()->email }}</small>
+                                    </div>
+                                </div>
+                                <span class="badge text-bg-warning mt-3">{{ Auth::user()->role === 'admin' ? 'Admin' : 'User' }}</span>
+                            </div>
+                            <a class="dropdown-item py-2" href="{{ route('profile.edit') }}">
+                                <i class="bi bi-person-lines-fill me-2"></i>Profil Saya
+                            </a>
+                            <form action="{{ route('logout') }}" method="POST">
+                                @csrf
+                                <button type="submit" class="dropdown-item py-2 text-danger">
+                                    <i class="bi bi-box-arrow-right me-2"></i>Keluar
+                                </button>
+                            </form>
+                        </div>
                     </li>
                 @else
                     <li class="nav-item ms-2">
@@ -76,6 +100,24 @@
         </div>
     </div>
 </nav>
+
+@if(session('success'))
+    <div class="container mt-4">
+        <div class="alert alert-success alert-dismissible fade show mb-0" role="alert">
+            <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+        </div>
+    </div>
+@endif
+
+@if(session('error'))
+    <div class="container mt-4">
+        <div class="alert alert-danger alert-dismissible fade show mb-0" role="alert">
+            <i class="bi bi-x-circle me-2"></i>{{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Tutup"></button>
+        </div>
+    </div>
+@endif
 
 @yield('content')
 

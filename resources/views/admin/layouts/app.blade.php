@@ -15,6 +15,9 @@
         .sidebar .nav-link { color: rgba(255,255,255,0.7); padding: .75rem 1.5rem; border-radius: 8px; margin: 2px 10px; font-weight: 500; }
         .sidebar .nav-link:hover, .sidebar .nav-link.active { background: rgba(255,255,255,0.1); color: #fff; }
         .sidebar .nav-link i { width: 20px; }
+        .admin-profile { margin: 1rem; padding: 1rem; background: rgba(255,255,255,.06); border: 1px solid var(--border-color); border-radius: 8px; }
+        .admin-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--accent); color: #121212; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; }
+        .admin-avatar-sm { width: 32px; height: 32px; border-radius: 50%; background: var(--accent); color: #121212; display: inline-flex; align-items: center; justify-content: center; font-weight: 800; }
         .main-content { margin-left: 260px; min-height: 100vh; position: relative; }
         .topbar { background: var(--primary); padding: .75rem 1.5rem; border-bottom: 1px solid var(--border-color); display: flex; justify-content: space-between; align-items: center; }
         .content-area { padding: 1.5rem; position: relative; z-index: 1; }
@@ -31,6 +34,16 @@
             <h5 class="mb-0 text-white fw-bold" style="font-size: 1.1rem; line-height: 1.2;">Sinar <span>Mandiri</span></h5>
             <small class="text-white-50 d-block" style="font-size: 0.75rem; line-height: 1;">Admin Panel</small>
         </div>
+    </div>
+    <div class="admin-profile">
+        <div class="d-flex align-items-center gap-3">
+            <span class="admin-avatar">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+            <div class="text-break">
+                <strong class="d-block text-white">{{ auth()->user()->name }}</strong>
+                <small class="text-white-50">{{ auth()->user()->email }}</small>
+            </div>
+        </div>
+        <span class="badge text-bg-warning mt-3">Admin</span>
     </div>
     <nav class="nav flex-column pt-3">
         <a class="nav-link {{ request()->routeIs('admin.dashboard') ? 'active' : '' }}" href="{{ route('admin.dashboard') }}">
@@ -55,6 +68,9 @@
         <a class="nav-link" href="{{ route('home') }}" target="_blank">
             <i class="bi bi-box-arrow-up-right me-2"></i>Lihat Website
         </a>
+        <a class="nav-link {{ request()->routeIs('profile.edit') ? 'active' : '' }}" href="{{ route('profile.edit') }}">
+            <i class="bi bi-person-lines-fill me-2"></i>Profil Saya
+        </a>
         <a class="nav-link text-danger" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
             <i class="bi bi-box-arrow-left me-2"></i>Logout
         </a>
@@ -66,8 +82,11 @@
     <div class="topbar">
         <h6 class="mb-0 fw-bold">@yield('title', 'Dashboard')</h6>
         <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-person-circle fs-5"></i>
-            <span class="small">{{ auth()->user()->name }}</span>
+            <span class="admin-avatar-sm">{{ strtoupper(substr(auth()->user()->name, 0, 1)) }}</span>
+            <div class="lh-sm">
+                <span class="small d-block">{{ auth()->user()->name }}</span>
+                <small class="text-white-50">Admin</small>
+            </div>
         </div>
     </div>
     <div class="content-area">
