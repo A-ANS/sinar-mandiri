@@ -9,6 +9,10 @@
             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}" required>
             @error('name')<div class="invalid-feedback">{{ $message }}</div>@enderror
         </div>
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Klasifikasi</label>
+            <input type="text" name="classification" class="form-control" value="{{ old('classification') }}" placeholder="Contoh: Jepang, Eropa, dll">
+        </div>
         <div class="mb-4">
             <label class="form-label fw-semibold">Logo</label>
             <input type="file" name="logo" class="form-control" accept="image/*">

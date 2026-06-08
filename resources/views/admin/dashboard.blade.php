@@ -2,7 +2,21 @@
 @section('title', 'Dashboard')
 
 @section('content')
-<div class="row g-4 mb-4">
+<style>
+    .dashboard-watermark {
+        position: fixed;
+        top: 50%;
+        left: calc(50% + 130px); /* Adjust for sidebar */
+        transform: translate(-50%, -50%);
+        opacity: 0.05;
+        pointer-events: none;
+        z-index: 0;
+        width: 60%;
+        max-width: 600px;
+    }
+</style>
+<img src="{{ asset('images/logo.png') }}" class="dashboard-watermark" alt="Logo">
+<div class="row g-4 mb-4" style="position: relative; z-index: 1;">
     <div class="col-md-3">
         <div class="stat-card" style="background:var(--primary)">
             <div class="d-flex justify-content-between align-items-center">
@@ -37,7 +51,7 @@
     </div>
 </div>
 
-<div class="row g-4">
+<div class="row g-4" style="position: relative; z-index: 1;">
     <div class="col-lg-7">
         <div class="card p-4">
             <h6 class="fw-bold mb-3">Mobil Terbaru</h6>

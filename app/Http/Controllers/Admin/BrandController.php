@@ -14,8 +14,12 @@ class BrandController extends Controller {
     }
     public function create() { return view('admin.brands.create'); }
     public function store(Request $request) {
-        $request->validate(['name' => 'required|unique:brands', 'logo' => 'nullable|image|max:2048']);
-        $data = $request->only('name');
+        $request->validate([
+            'name' => 'required|unique:brands', 
+            'logo' => 'nullable|image|max:2048',
+            'classification' => 'nullable|string|max:255'
+        ]);
+        $data = $request->only('name', 'classification');
         if ($request->hasFile('logo')) {
             $data['logo'] = $request->file('logo')->store('brands', 'public');
         }
@@ -24,8 +28,12 @@ class BrandController extends Controller {
     }
     public function edit(Brand $brand) { return view('admin.brands.edit', compact('brand')); }
     public function update(Request $request, Brand $brand) {
-        $request->validate(['name' => 'required|unique:brands,name,'.$brand->id, 'logo' => 'nullable|image|max:2048']);
-        $data = $request->only('name');
+        $request->validate([
+            'name' => 'required|unique:brands,name,'.$brand->id, 
+            'logo' => 'nullable|image|max:2048',
+            'classification' => 'nullable|string|max:255'
+        ]);
+        $data = $request->only('name', 'classification');
         if ($request->hasFile('logo')) {
             if ($brand->logo) Storage::disk('public')->delete($brand->logo);
             $data['logo'] = $request->file('logo')->store('brands', 'public');
