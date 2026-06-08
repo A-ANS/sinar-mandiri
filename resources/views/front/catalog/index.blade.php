@@ -73,7 +73,7 @@
                 <div class="col-md-6 col-xl-4">
                     <div class="card h-100">
                         @if($car->thumbnail)
-                            <img src="{{ Storage::url($car->thumbnail) }}" class="car-thumbnail w-100" alt="{{ $car->name }}">
+                            <img src="{{ Str::startsWith($car->thumbnail, 'http') ? $car->thumbnail : Storage::url($car->thumbnail) }}" class="car-thumbnail w-100" alt="{{ $car->name }}">
                         @else
                             <div class="car-thumbnail w-100 d-flex align-items-center justify-content-center bg-light">
                                 <i class="bi bi-car-front" style="font-size:4rem; color:#ccc"></i>

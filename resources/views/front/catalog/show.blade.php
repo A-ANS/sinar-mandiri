@@ -18,7 +18,7 @@
     <div class="row g-5">
         <div class="col-lg-7">
             @if($car->thumbnail)
-                <img src="{{ Storage::url($car->thumbnail) }}" class="w-100 rounded-3 mb-3 shadow" style="max-height:400px; object-fit:cover" alt="{{ $car->name }}">
+                <img src="{{ Str::startsWith($car->thumbnail, 'http') ? $car->thumbnail : Storage::url($car->thumbnail) }}" class="w-100 rounded-3 mb-3 shadow" style="max-height:400px; object-fit:cover" alt="{{ $car->name }}">
             @else
                 <div class="w-100 rounded-3 bg-light d-flex align-items-center justify-content-center mb-3" style="height:400px">
                     <i class="bi bi-car-front" style="font-size:8rem; color:#ccc"></i>
@@ -92,6 +92,15 @@
 
             @if($car->status === 'tersedia')
             <div class="d-grid gap-2">
+                @auth
+                    <a href="{{ route('transactions.create', $car) }}" class="btn btn-lg rounded-pill fw-bold" style="background:var(--accent);color:#fff">
+                        <i class="bi bi-bag-check me-2"></i>Beli Sekarang
+                    </a>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-lg rounded-pill fw-bold" style="background:var(--accent);color:#fff">
+                        <i class="bi bi-bag-check me-2"></i>Beli Sekarang (Login dulu)
+                    </a>
+                @endauth
                 <a href="{{ route('contact') }}?car_id={{ $car->id }}" class="btn btn-primary btn-lg rounded-pill">
                     <i class="bi bi-chat-dots me-2"></i>Tanya / Beli Sekarang
                 </a>
@@ -113,7 +122,7 @@
             <div class="col-md-4">
                 <div class="card h-100">
                     @if($r->thumbnail)
-                        <img src="{{ Storage::url($r->thumbnail) }}" class="car-thumbnail w-100" alt="{{ $r->name }}">
+                        <img src="{{ Str::startsWith($r->thumbnail, 'http') ? $r->thumbnail : Storage::url($r->thumbnail) }}" class="car-thumbnail w-100" alt="{{ $r->name }}">
                     @else
                         <div class="car-thumbnail w-100 d-flex align-items-center justify-content-center bg-light">
                             <i class="bi bi-car-front" style="font-size:3rem;color:#ccc"></i>

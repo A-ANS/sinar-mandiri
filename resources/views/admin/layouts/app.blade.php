@@ -48,6 +48,9 @@
         <a class="nav-link {{ request()->routeIs('admin.messages.*') ? 'active' : '' }}" href="{{ route('admin.messages.index') }}">
             <i class="bi bi-envelope me-2"></i>Pesan Masuk
         </a>
+        <a class="nav-link {{ request()->routeIs('admin.transactions.*') ? 'active' : '' }}" href="{{ route('admin.transactions.index') }}">
+            <i class="bi bi-receipt me-2"></i>Transaksi
+        </a>
         <hr class="border-secondary mx-3">
         <a class="nav-link" href="{{ route('home') }}" target="_blank">
             <i class="bi bi-box-arrow-up-right me-2"></i>Lihat Website
