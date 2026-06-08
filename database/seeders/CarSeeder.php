@@ -12,34 +12,33 @@ class CarSeeder extends Seeder
     {
         // Create brands first
         $brandsData = [
-            ['name' => 'Toyota', 'classification' => 'Jepang'],
-            ['name' => 'Honda', 'classification' => 'Jepang'],
-            ['name' => 'Mitsubishi', 'classification' => 'Jepang'],
-            ['name' => 'Daihatsu', 'classification' => 'Jepang'],
-            ['name' => 'Suzuki', 'classification' => 'Jepang'],
-            ['name' => 'Nissan', 'classification' => 'Jepang'],
-            ['name' => 'Mazda', 'classification' => 'Jepang'],
-            ['name' => 'Wuling', 'classification' => 'Tiongkok'],
-            ['name' => 'Hyundai', 'classification' => 'Korea Selatan'],
-            ['name' => 'Kia', 'classification' => 'Korea Selatan'],
-            ['name' => 'BMW', 'classification' => 'Eropa'],
-            ['name' => 'Mercedes-Benz', 'classification' => 'Eropa'],
-            ['name' => 'Ford', 'classification' => 'Amerika'],
-            ['name' => 'Chevrolet', 'classification' => 'Amerika'],
-            ['name' => 'Datsun', 'classification' => 'Jepang'],
-            ['name' => 'Isuzu', 'classification' => 'Jepang'],
-            ['name' => 'Lexus', 'classification' => 'Jepang'],
-            ['name' => 'Peugeot', 'classification' => 'Eropa'],
-            ['name' => 'Renault', 'classification' => 'Eropa'],
-            ['name' => 'Volkswagen', 'classification' => 'Eropa'],
-            ['name' => 'Volvo', 'classification' => 'Eropa'],
+            ['name' => 'Toyota', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/toyota.png'],
+            ['name' => 'Honda', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/honda.png'],
+            ['name' => 'Mitsubishi', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/mitsubishi.png'],
+            ['name' => 'Daihatsu', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/daihatsu.png'],
+            ['name' => 'Suzuki', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/suzuki.png'],
+            ['name' => 'Nissan', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/nissan.png'],
+            ['name' => 'Mazda', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/mazda.png'],
+            ['name' => 'Wuling', 'classification' => 'Tiongkok', 'logo' => 'https://upload.wikimedia.org/wikipedia/commons/e/ee/Wuling_Motors_logo.svg'],
+            ['name' => 'Hyundai', 'classification' => 'Korea Selatan', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/hyundai.png'],
+            ['name' => 'Kia', 'classification' => 'Korea Selatan', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/kia.png'],
+            ['name' => 'BMW', 'classification' => 'Eropa', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/bmw.png'],
+            ['name' => 'Mercedes-Benz', 'classification' => 'Eropa', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/mercedes-benz.png'],
+            ['name' => 'Ford', 'classification' => 'Amerika', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/ford.png'],
+            ['name' => 'Chevrolet', 'classification' => 'Amerika', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/chevrolet.png'],
+            ['name' => 'Datsun', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/datsun.png'],
+            ['name' => 'Isuzu', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/isuzu.png'],
+            ['name' => 'Lexus', 'classification' => 'Jepang', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/lexus.png'],
+            ['name' => 'Peugeot', 'classification' => 'Eropa', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/peugeot.png'],
+            ['name' => 'Renault', 'classification' => 'Eropa', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/renault.png'],
+            ['name' => 'Volkswagen', 'classification' => 'Eropa', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/volkswagen.png'],
+            ['name' => 'Volvo', 'classification' => 'Eropa', 'logo' => 'https://cdn.jsdelivr.net/gh/filippofilip95/car-logos-dataset@master/logos/optimized/volvo.png'],
         ];
 
         foreach ($brandsData as $data) {
-            $logo = 'https://ui-avatars.com/api/?name=' . urlencode($data['name']) . '&background=random&color=fff&size=128&bold=true';
             Brand::updateOrCreate(
                 ['name' => $data['name']],
-                ['classification' => $data['classification'], 'logo' => $logo]
+                ['classification' => $data['classification'], 'logo' => $data['logo']]
             );
         }
 

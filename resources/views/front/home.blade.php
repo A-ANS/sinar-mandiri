@@ -54,9 +54,13 @@
                 <a href="{{ route('catalog.index', ['brand' => $brand->id]) }}" class="text-decoration-none">
                     <div class="card text-center p-3">
                         @if($brand->logo)
-                            <img src="{{ Storage::url($brand->logo) }}" alt="{{ $brand->name }}" height="50" class="object-fit-contain mb-2">
+                            @if(Str::startsWith($brand->logo, 'http'))
+                                <img src="{{ $brand->logo }}" alt="{{ $brand->name }}" height="50" class="object-fit-contain mb-2" style="max-width:100%; filter: brightness(0) invert(1);">
+                            @else
+                                <img src="{{ Storage::url($brand->logo) }}" alt="{{ $brand->name }}" height="50" class="object-fit-contain mb-2">
+                            @endif
                         @else
-                            <i class="bi bi-car-front-fill fs-1 mb-2" style="color:var(--primary)"></i>
+                            <i class="bi bi-car-front-fill fs-1 mb-2" style="color:var(--accent)"></i>
                         @endif
                         <p class="mb-0 fw-semibold small text-light">{{ $brand->name }}</p>
                         <small class="text-muted">{{ $brand->cars_count }} unit</small>
